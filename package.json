@@ -1,6 +1,7 @@
 {
   "name": "connectai",
   "version": "1.0.0",
+  "type": "module",
   "description": "chatbot",
   "main": "server.js",
   "scripts": {
