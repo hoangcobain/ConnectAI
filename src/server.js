@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import viewEngine from "./configs/viewEngine";
-import webRoutes from "./routes/web";
+import viewEngine from "./configs/viewEngine.js";
+import webRoutes from "./routes/web.js";
 
 let app = express();
 

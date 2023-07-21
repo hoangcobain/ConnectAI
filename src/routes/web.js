@@ -1,5 +1,5 @@
 import express from "express";
-import homeController from "../controllers/HomeController";
+import homeController from "../controllers/HomeController.js";
 
 let router = express.Router();
 
@@ -10,4 +10,4 @@ let initWebRoutes = (app) => {
   return app.use("/", router);
 };
 
-module.exports = initWebRoutes;
+export default initWebRoutes;

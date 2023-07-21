@@ -1,4 +1,6 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+
+dotenv.config();
 let getHomePage = (req, res) => {
   return res.render("homepage.ejs");
 };
@@ -42,8 +44,10 @@ let getWebhook = (req, res) => {
   }
 };
 
-module.exports = {
-  getHomePage: getHomePage,
-  postWebhook: postWebhook,
-  getWebhook: getWebhook,
+const homeController = {
+  getHomePage,
+  postWebhook,
+  getWebhook,
 };
+
+export default homeController;
