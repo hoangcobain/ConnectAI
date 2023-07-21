@@ -156,10 +156,49 @@ function callSendAPI(sender_psid, response) {
   );
 }
 
+// Function to handle incoming messages
+function handleIncomingMessageZalo(userId, message) {
+  // Your logic to process the incoming message (optional)
+  console.log(`Received message from user ${userId}: ${message}`);
+
+  // Reply to the user
+  const replyMessage = "This is an automated reply from your Zalo OA chatbot!";
+  sendTextMessage(userId, replyMessage);
+}
+
+// Function to send a text message to a user
+function sendTextMessage(recipientId, message) {
+  request(
+    {
+      headers: {
+        "content-type": "application/json",
+        access_token: process.env.ACCESS_TOKEN,
+      },
+      url: "https://openapi.zalo.me/v3.0/oa/message/cs",
+      method: "POST",
+      json: {
+        oaid: process.env.YOUR_ZALO_OA_API_KEY,
+        to: recipientId,
+        message: {
+          text: message,
+        },
+      },
+    },
+    function (error, response, body) {
+      if (error) {
+        console.error("Error sending message:", error);
+      } else {
+        console.log("Message sent successfully:", body);
+      }
+    }
+  );
+}
+
 const homeController = {
   getHomePage,
   postWebhook,
   getWebhook,
+  handleIncomingMessageZalo,
 };
 
 export default homeController;
