@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import request from "request";
 
 dotenv.config();
+
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 let getHomePage = (req, res) => {
   return res.render("homepage.ejs");
 };
@@ -62,6 +64,33 @@ let getWebhook = (req, res) => {
       res.sendStatus(403);
     }
   }
+};
+
+let setupProfile = (req, res) => {
+  // Construct the message body
+  let request_body = {
+    get_started: { payload: "GET_STARTED" },
+    whitelisted_domains: ["https://connectai.onrender.com/"],
+  };
+
+  // Send the HTTP request to the Messenger Platform
+  request(
+    {
+      uri: `https://graph.facebook.com/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+      qs: { access_token: PAGE_ACCESS_TOKEN },
+      method: "POST",
+      json: request_body,
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log("Setup Success!");
+      } else {
+        console.error("Unable to setup profile:" + err);
+      }
+    }
+  );
+
+  return res.send("Setup Success!");
 };
 
 // Handles messages events
@@ -160,6 +189,7 @@ const homeController = {
   getHomePage,
   postWebhook,
   getWebhook,
+  setupProfile,
 };
 
 export default homeController;
